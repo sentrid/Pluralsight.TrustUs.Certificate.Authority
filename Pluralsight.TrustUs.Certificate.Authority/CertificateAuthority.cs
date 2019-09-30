@@ -31,6 +31,7 @@ namespace Pluralsight.TrustUs
             var certRequest = crypt.ImportCert(requestCertificate, crypt.UNUSED);
             crypt.CAAddItem(certStore, certRequest);
 
+            crypt.DestroyCert(certRequest);
             crypt.KeysetClose(certStore);
         }
 
@@ -48,12 +49,15 @@ namespace Pluralsight.TrustUs
 
             crypt.CACertManagement(crypt.CERTACTION_ISSUE_CERT, certStore, caKey, certRequest);
 
-            var caGetItem = crypt.CAGetItem(certStore, crypt.CERTTYPE_CERTCHAIN, crypt.KEYID_NAME,
+            var certChain = crypt.CAGetItem(certStore, crypt.CERTTYPE_CERTCHAIN, crypt.KEYID_NAME,
                 certificateConfiguration.DistinguishedName.CommonName);
 
             var certificate = new Certificate();
-            File.WriteAllText(certificateConfiguration.CertificateFileName, certificate.ExportCertificateAsText(caGetItem));
+            File.WriteAllText(certificateConfiguration.CertificateFileName, certificate.ExportCertificateAsText(certChain));
 
+            crypt.DestroyObject(certChain);
+            crypt.DestroyObject(caKey);
+            crypt.DestroyObject(certRequest);
             crypt.KeysetClose(caKeyStore);
             crypt.KeysetClose(certStore);
         }

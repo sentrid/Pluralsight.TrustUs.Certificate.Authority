@@ -46,7 +46,16 @@ namespace Pluralsight.TrustUs
                     return;
             }
 
-            crypt.End();
+
+            try
+            {
+                crypt.End();
+            }
+            catch (CryptException ce)
+            {
+                if(ce.Status != -23)
+                    throw;
+            }
         }
 
         private static void InstallCertificateAuthority()
@@ -137,10 +146,10 @@ namespace Pluralsight.TrustUs
 
             var certificateConfiguration = new CertificateConfiguration
             {
-                CertificateFileName = @"C:\Pluralsight\Keys\DuckAir\FlightOps.cer",
+                CertificateFileName = @"C:\Pluralsight\Keys\DuckAir\CN4.cer",
                 DistinguishedName = new DistinguishedName
                 {
-                    CommonName = "Flight Operations"
+                    CommonName = "CN4"
                 },
                 SigningKeyLabel = ConfigurationData.Berlin.KeyLabel,
                 SigningKeyFileName = ConfigurationData.Berlin.KeystoreFileName,
