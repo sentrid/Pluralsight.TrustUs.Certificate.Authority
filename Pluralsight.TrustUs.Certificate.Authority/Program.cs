@@ -53,7 +53,7 @@ namespace Pluralsight.TrustUs
             }
             catch (CryptException ce)
             {
-                if(ce.Status != -23)
+                if (ce.Status != -23)
                     throw;
             }
         }
@@ -71,7 +71,8 @@ namespace Pluralsight.TrustUs
                 ConfigurationData.Santiago,
                 ConfigurationData.Sydney
             };
-            trustUsCertificateAuthority.Install(ConfigurationData.Root, intermediateCertificateAuthorities);
+            trustUsCertificateAuthority.Install(ConfigurationData.Root, ConfigurationData.Policy,
+                intermediateCertificateAuthorities);
         }
 
         private static void CreateCertificateRequest()
@@ -109,24 +110,15 @@ namespace Pluralsight.TrustUs
 
             Console.Write($"\nKey Store FileName [{keyConfiguration.KeystoreFileName}]: ");
             var tempFileName = Console.ReadLine();
-            if (!string.IsNullOrEmpty(tempFileName))
-            {
-                keyConfiguration.KeystoreFileName = tempFileName;
-            }
+            if (!string.IsNullOrEmpty(tempFileName)) keyConfiguration.KeystoreFileName = tempFileName;
 
             Console.Write($"CSR FileName [{keyConfiguration.CertificateRequestFileName}]: ");
             tempFileName = Console.ReadLine();
-            if (!string.IsNullOrEmpty(tempFileName))
-            {
-                keyConfiguration.CertificateRequestFileName = tempFileName;
-            }
+            if (!string.IsNullOrEmpty(tempFileName)) keyConfiguration.CertificateRequestFileName = tempFileName;
 
             Console.Write($"Certificate FileName [{keyConfiguration.CertificateFileName}]: ");
             tempFileName = Console.ReadLine();
-            if (!string.IsNullOrEmpty(tempFileName))
-            {
-                keyConfiguration.CertificateFileName = tempFileName;
-            }
+            if (!string.IsNullOrEmpty(tempFileName)) keyConfiguration.CertificateFileName = tempFileName;
         }
 
         private static void SubmitCertificateRequest(string[] args)

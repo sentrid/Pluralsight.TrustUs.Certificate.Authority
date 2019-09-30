@@ -28,6 +28,26 @@ namespace Pluralsight.TrustUs.Data
             RevocationListUrl = @"http://crl.trustusca.net"
         };
 
+        public static CertificateAuthorityConfiguration Policy => new CertificateAuthorityConfiguration
+        {
+            CertificateFileName = BaseDirectory + @"\policy.cer",
+            KeystoreFileName = BaseDirectory + @"\policy.key",
+            DistinguishedName = new DistinguishedName
+            {
+                Country = "US",
+                State = "OH",
+                Locality = "Cleveland",
+                Organization = "Trust Us",
+                OrganizationalUnit = "Certificates",
+                CommonName = "Policy Certificate"
+            },
+            KeyLabel = "Policy",
+            PrivateKeyPassword = "P@ssw0rd",
+            CertificateStoreFilePath = BaseDirectory + @"\TrustUsStore.db",
+            CertificateStoreOdbcName = "TrustUs",
+            CertStoreUrl = @"http://certs.trustusca.net"
+        };
+
         public static CertificateAuthorityConfiguration Cleveland => new CertificateAuthorityConfiguration
         {
             CertificateFileName = BaseDirectory + @"\clevelandIca.cer",
@@ -43,8 +63,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Cleveland",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
 
@@ -63,8 +83,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Mumbai",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
 
@@ -82,8 +102,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Berlin",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
 
@@ -101,8 +121,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Santiago",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
 
@@ -121,8 +141,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Moscow",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
 
@@ -141,8 +161,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Sydney",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
 
@@ -161,8 +181,8 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Cape Town",
             PrivateKeyPassword = "P@ssw0rd",
-            SigningKeyFileName = BaseDirectory + @"\ca.key",
-            SigningKeyLabel = "Root",
+            SigningKeyFileName = BaseDirectory + @"\policy.key",
+            SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd"
         };
     }
