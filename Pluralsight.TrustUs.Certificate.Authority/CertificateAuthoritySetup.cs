@@ -6,13 +6,17 @@ using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
+    /// <summary>
+    /// Class CertificateAuthoritySetup.
+    /// </summary>
+    /// TODO Edit XML Comment Template for CertificateAuthoritySetup
     public class CertificateAuthoritySetup
     {
         /// <summary>
-        ///     Installs the specified root certificate authority.
+        /// Installs the specified root certificate authority.
         /// </summary>
         /// <param name="rootCertificateAuthority">The root certificate authority.</param>
-        /// <param name="policyCertificateAuthority"></param>
+        /// <param name="policyCertificateAuthority">The policy certificate authority.</param>
         /// <param name="intermediateCertificateAuthorities">The intermediate certificate authorities.</param>
         public void Install(CertificateAuthorityConfiguration rootCertificateAuthority,
             CertificateAuthorityConfiguration policyCertificateAuthority,
@@ -31,7 +35,7 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        ///     Generates the root ca certificate.
+        /// Generates the root ca certificate.
         /// </summary>
         /// <param name="rootCertificateAuthority">The root certificate authority.</param>
         private void GenerateRootCaCertificate(CertificateAuthorityConfiguration rootCertificateAuthority)
@@ -91,8 +95,9 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        ///     Initializes the certificate store.
+        /// Initializes the certificate store.
         /// </summary>
+        /// <param name="rootCertificateAuthority">The root certificate authority.</param>
         private void InitializeCertificateStore(CertificateAuthorityConfiguration rootCertificateAuthority)
         {
             if (!File.Exists(rootCertificateAuthority.CertificateStoreFilePath))
@@ -106,8 +111,9 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        ///     Generates the Policy CA Certificate
+        /// Generates the Policy CA Certificate
         /// </summary>
+        /// <param name="policyCertificateAuthority">The policy certificate authority.</param>
         private void GeneratePolicyCaCertificate(CertificateAuthorityConfiguration policyCertificateAuthority)
         {
             /* Create an RSA public/private key context, set a label for it, and generate a key into it */
@@ -160,7 +166,7 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        ///     Generates the intermediate certificate.
+        /// Generates the intermediate certificate.
         /// </summary>
         /// <param name="certificateConfiguration">The certificate configuration.</param>
         private void GenerateIntermediateCertificate(CertificateConfiguration certificateConfiguration)

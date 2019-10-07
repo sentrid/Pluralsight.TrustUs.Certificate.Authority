@@ -2,10 +2,20 @@
 {
     public class KeyConfiguration
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="KeyConfiguration"/> class.
+        /// </summary>
+        /// TODO Edit XML Comment Template for #ctor
         public KeyConfiguration()
         {
             DistinguishedName = new DistinguishedName();
         }
+
+        /// <summary>
+        /// Gets or sets the name of the distinguished.
+        /// </summary>
+        /// <value>The name of the distinguished.</value>
+        public DistinguishedName DistinguishedName { get; set; }
 
         /// <summary>
         /// Gets or sets the private key password.
@@ -31,13 +41,10 @@
         /// <value>The name of the certificate file.</value>
         public string CertificateRequestFileName { get; set; }
 
-        public string CertificateFileName { get; set; }
-
         /// <summary>
-        /// Gets or sets the name of the distinguished.
+        /// Gets or sets the filename of the certificate.
         /// </summary>
-        /// <value>The name of the distinguished.</value>
-        public DistinguishedName DistinguishedName { get; set; }
-
+        public string CertificateFileName { get; set; }
+        
     }
 }

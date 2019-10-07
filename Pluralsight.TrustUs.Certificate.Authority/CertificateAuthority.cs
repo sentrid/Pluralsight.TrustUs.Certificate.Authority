@@ -5,10 +5,14 @@ using Pluralsight.TrustUs.Libraries;
 namespace Pluralsight.TrustUs
 {
     /// <summary>
-    ///     Class CertificateAuthority.
+    /// Class CertificateAuthority.
     /// </summary>
     public class CertificateAuthority
     {
+        /// <summary>
+        /// Starts the ocsp server.
+        /// </summary>
+        /// TODO Edit XML Comment Template for StartOcspServer
         public static void StartOcspServer()
         {
             var session = crypt.CreateSession(crypt.UNUSED, crypt.SESSION_OCSP_SERVER);
@@ -22,6 +26,11 @@ namespace Pluralsight.TrustUs
             crypt.KeysetClose(privateKeyStore);
         }
 
+        /// <summary>
+        /// Submits the certificate request.
+        /// </summary>
+        /// <param name="certificateRequestFileName">Name of the certificate request file.</param>
+        /// TODO Edit XML Comment Template for SubmitCertificateRequest
         public void SubmitCertificateRequest(string certificateRequestFileName)
         {
             var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, @"TrustUs",
@@ -35,6 +44,11 @@ namespace Pluralsight.TrustUs
             crypt.KeysetClose(certStore);
         }
 
+        /// <summary>
+        /// Issues the certificate.
+        /// </summary>
+        /// <param name="certificateConfiguration">The certificate configuration.</param>
+        /// TODO Edit XML Comment Template for IssueCertificate
         public void IssueCertificate(CertificateConfiguration certificateConfiguration)
         {
             var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, certificateConfiguration.SigningKeyFileName,
@@ -62,6 +76,12 @@ namespace Pluralsight.TrustUs
             crypt.KeysetClose(certStore);
         }
 
+        /// <summary>
+        /// Revokes the certificate.
+        /// </summary>
+        /// <param name="crlFileName">Name of the CRL file.</param>
+        /// <param name="caKeyFileName">Name of the ca key file.</param>
+        /// TODO Edit XML Comment Template for RevokeCertificate
         public void RevokeCertificate(string crlFileName, string caKeyFileName)
         {
             var certificate = new Certificate();

@@ -4,8 +4,18 @@ using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
+    /// <summary>
+    /// Class CryptographicOperations.
+    /// </summary>
+    /// TODO Edit XML Comment Template for CryptographicOperations
     public class CryptographicOperations
     {
+        /// <summary>
+        /// Encrypts the specified plain text.
+        /// </summary>
+        /// <param name="plainText">The plain text.</param>
+        /// <returns>System.Byte[].</returns>
+        /// TODO Edit XML Comment Template for Encrypt
         public byte[] Encrypt(string plainText)
         {
             var keystore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC, "TrustUsTest", crypt.KEYOPT_READONLY);
@@ -29,6 +39,12 @@ namespace Pluralsight.TrustUs
             return encryptedData;
         }
 
+        /// <summary>
+        /// Decrypts the specified encrypted data.
+        /// </summary>
+        /// <param name="encryptedData">The encrypted data.</param>
+        /// <returns>System.String.</returns>
+        /// TODO Edit XML Comment Template for Decrypt
         public string Decrypt(byte[] encryptedData)
         {
             var keySet = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Test\Keys\DuckAir.key",

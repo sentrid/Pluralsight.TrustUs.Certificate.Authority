@@ -1,11 +1,23 @@
-﻿using System;
-using Pluralsight.TrustUs.DataStructures;
+﻿using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
+    /// <summary>
+    ///     Class Key.
+    /// </summary>
+    /// TODO Edit XML Comment Template for Key
     public static class Key
     {
+        /// <summary>
+        ///  Generates a PKI (public/private) key pair using cryptlib.
+        /// 
+        ///  Since cryptlib is written in C we need to explicitly destroy cryptlib objects
+        ///  that we create. In this method we have 2 objects that are allocated and destroyed.
+        ///  The first is 'keyPair' which is allocated by 'CreateContext' on the first line of
+        ///  the method and destroyed by 'DestroyContext' on the last line of the method.
+        /// </summary>
+        /// <param name="keyConfiguration">The key configuration.</param>
         public static void GenerateKeyPair(KeyConfiguration keyConfiguration)
         {
             var keyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
@@ -23,9 +35,17 @@ namespace Pluralsight.TrustUs
             crypt.DestroyContext(keyPair);
         }
 
+        /// <summary>
+        ///     Gets the private key.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="keyLabel">The key label.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.Byte[].</returns>
+        /// TODO Edit XML Comment Template for GetPrivateKey
         public static byte[] GetPrivateKey(string fileName, string keyLabel, string password)
         {
-            int privateKeySize = 4096;
+            var privateKeySize = 4096;
             var keyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, fileName, crypt.KEYOPT_READONLY);
             var privateKeyId = crypt.GetPrivateKey(keyStore, crypt.KEYID_NAME, keyLabel, password);
             var keyContext = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
