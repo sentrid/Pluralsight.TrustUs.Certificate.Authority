@@ -42,6 +42,5 @@
         /// <value>The ocsp URL.</value>
         /// TODO Edit XML Comment Template for OcspUrl
         public string OcspUrl { get; set; }
-
     }
 }

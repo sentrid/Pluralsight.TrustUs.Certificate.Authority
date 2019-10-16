@@ -18,22 +18,22 @@ namespace Pluralsight.TrustUs
         ///  the method and destroyed by 'DestroyContext' on the last line of the method.
         /// </summary>
         /// <param name="keyConfiguration">The key configuration.</param>
-        public static void GenerateKeyPair(KeyConfiguration keyConfiguration)
-        {
-            var keyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
-            crypt.SetAttributeString(keyPair, crypt.CTXINFO_LABEL, keyConfiguration.KeyLabel);
-            crypt.SetAttribute(keyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
-            crypt.GenerateKey(keyPair);
-            var keyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, keyConfiguration.KeystoreFileName,
-                crypt.KEYOPT_CREATE);
-            crypt.AddPrivateKey(keyStore, keyPair, keyConfiguration.PrivateKeyPassword);
-            crypt.KeysetClose(keyStore);
+        //public static void GenerateKeyPair(KeyConfiguration keyConfiguration)
+        //{
+        //    var keyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
+        //    crypt.SetAttributeString(keyPair, crypt.CTXINFO_LABEL, keyConfiguration.KeyLabel);
+        //    crypt.SetAttribute(keyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
+        //    crypt.GenerateKey(keyPair);
+        //    var keyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, keyConfiguration.KeystoreFileName,
+        //        crypt.KEYOPT_CREATE);
+        //    crypt.AddPrivateKey(keyStore, keyPair, keyConfiguration.PrivateKeyPassword);
+        //    crypt.KeysetClose(keyStore);
 
-            var certClass = new Certificate();
-            certClass.CreateSigningRequest(keyConfiguration, keyPair);
+        //    var certClass = new Certificate();
+        //    certClass.CreateSigningRequest(keyConfiguration, keyPair);
 
-            crypt.DestroyContext(keyPair);
-        }
+        //    crypt.DestroyContext(keyPair);
+        //}
 
         /// <summary>
         ///     Gets the private key.
@@ -50,10 +50,40 @@ namespace Pluralsight.TrustUs
             var privateKeyId = crypt.GetPrivateKey(keyStore, crypt.KEYID_NAME, keyLabel, password);
             var keyContext = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
             var privateKey = new byte[privateKeySize];
-            //crypt.ExportKey(privateKey, privateKeySize, privateKeyId, keyContext);
             crypt.ExportKeyEx(privateKey, privateKeySize, crypt.FORMAT_SMIME, privateKeyId, keyContext);
-
+            crypt.DestroyContext(keyContext);
+            crypt.KeysetClose(keyStore);
             return privateKey;
+        }
+
+        public static int GetPrivateKeyHandle(string fileName, string keyLabel, string password)
+        {
+            var keyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, fileName, crypt.KEYOPT_READONLY);
+            var privateKeyId = crypt.GetPrivateKey(keyStore, crypt.KEYID_NAME, keyLabel, password);
+            crypt.KeysetClose(keyStore);
+            return privateKeyId;
+        }
+
+        /// <summary>
+        /// Generates the key pair. Must release context from calling method.
+        /// </summary>
+        /// <param name="keyConfiguration">The key configuration.</param>
+        /// <returns>System.Int32.</returns>
+        /// TODO Edit XML Comment Template for GenerateKeyPair
+        public static int GenerateKeyPair(KeyConfiguration keyConfiguration)
+        {
+            /* Create an RSA public/private key context, set a label for it, and generate a key into it */
+            var keyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
+
+            crypt.SetAttributeString(keyPair, crypt.CTXINFO_LABEL, keyConfiguration.KeyLabel);
+            crypt.SetAttribute(keyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
+            crypt.GenerateKey(keyPair);
+
+            var keyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE,
+                keyConfiguration.KeystoreFileName, crypt.KEYOPT_CREATE);
+            crypt.AddPrivateKey(keyStore, keyPair, keyConfiguration.PrivateKeyPassword);
+            crypt.KeysetClose(keyStore);
+            return keyPair;
         }
     }
 }

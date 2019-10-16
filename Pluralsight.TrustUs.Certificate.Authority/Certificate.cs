@@ -13,12 +13,40 @@ namespace Pluralsight.TrustUs
     public class Certificate
     {
         /// <summary>
+        /// Creates the certificate.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <param name="keyContext">The key context.</param>
+        /// <returns>System.Int32.</returns>
+        /// TODO Edit XML Comment Template for CreateCertificate
+        public static int CreateCertificate(CertificateAuthorityConfiguration configuration, int keyContext)
+        {
+            var certificate = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTIFICATE);
+
+            crypt.SetAttribute(certificate, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, keyContext);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_COUNTRYNAME,
+                configuration.DistinguishedName.Country);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_STATEORPROVINCENAME,
+                configuration.DistinguishedName.State);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_LOCALITYNAME,
+                configuration.DistinguishedName.Locality);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_ORGANIZATIONNAME,
+                configuration.DistinguishedName.Organization);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_ORGANIZATIONALUNITNAME,
+                configuration.DistinguishedName.OrganizationalUnit);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_COMMONNAME,
+                configuration.DistinguishedName.CommonName);
+
+            return certificate;
+        }
+
+        /// <summary>
         /// Exports the certificate.
         /// </summary>
         /// <param name="certificateHandle">The certificate handle.</param>
         /// <returns>System.Byte[].</returns>
         /// TODO Edit XML Comment Template for ExportCertificate
-        public byte[] ExportCertificate(int certificateHandle)
+        public static byte[] ExportCertificate(int certificateHandle)
         {
             var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_CERTIFICATE, certificateHandle);
             var certificateBuffer = new byte[certificateSize];
@@ -32,7 +60,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificateHandle">The certificate handle.</param>
         /// <returns>System.String.</returns>
         /// TODO Edit XML Comment Template for ExportCertificateAsText
-        public string ExportCertificateAsText(int certificateHandle)
+        public static string ExportCertificateAsText(int certificateHandle)
         {
             var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_TEXT_CERTIFICATE, certificateHandle);
             var certificateBuffer = new byte[certificateSize];
@@ -47,7 +75,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificateHandle">The certificate handle.</param>
         /// <param name="fileName">Name of the file.</param>
         /// TODO Edit XML Comment Template for ExportCertificateToFile
-        public void ExportCertificateToFile(int certificateHandle, string fileName)
+        public static void ExportCertificateToFile(int certificateHandle, string fileName)
         {
             var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_TEXT_CERTIFICATE, certificateHandle);
             var certificateBuffer = new byte[certificateSize];
@@ -61,7 +89,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificate">The certificate.</param>
         /// <returns>System.Int32.</returns>
         /// TODO Edit XML Comment Template for ImportCertificate
-        public int ImportCertificate(byte[] certificate)
+        public static int ImportCertificate(byte[] certificate)
         {
             var certificateHandle = crypt.ImportCert(certificate, crypt.UNUSED);
             return certificateHandle;

@@ -54,8 +54,7 @@ namespace Pluralsight.TrustUs
                     ShowHelp();
                     return;
             }
-
-
+            
             try
             {
                 crypt.End();
