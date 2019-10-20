@@ -11,11 +11,11 @@ namespace Pluralsight.TrustUs
     {
         public static void Main(string[] args)
         {
-//#if DEBUG
-//            Array.Resize(ref args, 2);
-//            args[0] = "install";
-//            args[1] = @"C:\Pluralsight\Keys\DuckAir\FlightOps.csr";
-//#endif
+#if DEBUG
+            Array.Resize(ref args, 2);
+            args[0] = "install";
+            args[1] = @"C:\Pluralsight\Keys\DuckAir\FlightOps.csr";
+#endif
             if (args.Length == 0)
             {
                 ShowHelp();
