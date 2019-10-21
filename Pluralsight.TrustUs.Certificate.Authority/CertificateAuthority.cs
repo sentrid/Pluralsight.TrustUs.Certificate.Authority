@@ -66,8 +66,7 @@ namespace Pluralsight.TrustUs
             var certChain = crypt.CAGetItem(certStore, crypt.CERTTYPE_CERTCHAIN, crypt.KEYID_NAME,
                 certificateConfiguration.DistinguishedName.CommonName);
 
-            var certificate = new Certificate();
-            File.WriteAllText(certificateConfiguration.CertificateFileName, certificate.ExportCertificateAsText(certChain));
+            File.WriteAllText(certificateConfiguration.CertificateFileName, Certificate.ExportCertificateAsText(certChain));
 
             crypt.DestroyObject(certChain);
             crypt.DestroyObject(caKey);

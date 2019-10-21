@@ -2,14 +2,18 @@
 
 namespace Pluralsight.TrustUs.Data
 {
+    /// <summary>
+    /// Class ConfigurationData.
+    /// </summary>
+    /// TODO Edit XML Comment Template for ConfigurationData
     public static class ConfigurationData
     {
         public static string BaseDirectory => @"C:\Pluralsight\Keys";
 
         public static CertificateAuthorityConfiguration Root => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\ca.cer",
-            KeystoreFileName = BaseDirectory + @"\ca.key",
+            CertificateFileName = BaseDirectory + @"\Ca.cer",
+            KeystoreFileName = BaseDirectory + @"\Ca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "US",
@@ -30,8 +34,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Policy => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\policy.cer",
-            KeystoreFileName = BaseDirectory + @"\policy.key",
+            CertificateFileName = BaseDirectory + @"\Policy.cer",
+            KeystoreFileName = BaseDirectory + @"\Policy.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "US",
@@ -45,13 +49,16 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             CertificateStoreFilePath = BaseDirectory + @"\TrustUsStore.db",
             CertificateStoreOdbcName = "TrustUs",
-            CertStoreUrl = @"http://certs.trustusca.net"
+            CertStoreUrl = @"http://certs.trustusca.net",
+            SigningKeyFileName = BaseDirectory + @"\ca.key",
+            SigningKeyLabel = "Root",
+            SigningKeyPassword = "P@ssw0rd"
         };
 
         public static CertificateAuthorityConfiguration Cleveland => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\clevelandIca.cer",
-            KeystoreFileName = BaseDirectory + @"\clevelandIca.key",
+            CertificateFileName = BaseDirectory + @"\ClevelandIca.cer",
+            KeystoreFileName = BaseDirectory + @"\ClevelandIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "US",
@@ -70,8 +77,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Mumbai => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\mumbaiIca.cer",
-            KeystoreFileName = BaseDirectory + @"\mumbaiIca.key",
+            CertificateFileName = BaseDirectory + @"\MumbaiIca.cer",
+            KeystoreFileName = BaseDirectory + @"\MumbaiIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "IN",
@@ -90,8 +97,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Berlin => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\berlinIca.cer",
-            KeystoreFileName = BaseDirectory + @"\berlinIca.key",
+            CertificateFileName = BaseDirectory + @"\BerlinIca.cer",
+            KeystoreFileName = BaseDirectory + @"\BerlinIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "DE",
@@ -109,8 +116,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Santiago => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\santiagoIca.cer",
-            KeystoreFileName = BaseDirectory + @"\santiagoIca.key",
+            CertificateFileName = BaseDirectory + @"\SantiagoIca.cer",
+            KeystoreFileName = BaseDirectory + @"\SantiagoIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "CL",
@@ -128,8 +135,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Moscow => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\moscowIca.cer",
-            KeystoreFileName = BaseDirectory + @"\moscowIca.key",
+            CertificateFileName = BaseDirectory + @"\MoscowIca.cer",
+            KeystoreFileName = BaseDirectory + @"\MoscowIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "RU",
@@ -148,8 +155,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Sydney => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\sydneyIca.cer",
-            KeystoreFileName = BaseDirectory + @"\sydneyIca.key",
+            CertificateFileName = BaseDirectory + @"\SydneyIca.cer",
+            KeystoreFileName = BaseDirectory + @"\SydneyIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "AU",
@@ -168,8 +175,8 @@ namespace Pluralsight.TrustUs.Data
 
         public static CertificateAuthorityConfiguration Capetown => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = BaseDirectory + @"\capeTownIca.cer",
-            KeystoreFileName = BaseDirectory + @"\capeTownIca.key",
+            CertificateFileName = BaseDirectory + @"\CapeTownIca.cer",
+            KeystoreFileName = BaseDirectory + @"\CapeTownIca.key",
             DistinguishedName = new DistinguishedName
             {
                 Country = "ZA",

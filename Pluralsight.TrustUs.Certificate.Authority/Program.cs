@@ -20,11 +20,11 @@ namespace Pluralsight.TrustUs
         /// TODO Edit XML Comment Template for Main
         public static void Main(string[] args)
         {
-//#if DEBUG
-//            Array.Resize(ref args, 2);
-//            args[0] = "install";
-//            args[1] = @"C:\Pluralsight\Keys\DuckAir\FlightOps.csr";
-//#endif
+#if DEBUG
+            Array.Resize(ref args, 2);
+            args[0] = "install";
+            args[1] = @"C:\Pluralsight\Keys\DuckAir\FlightOps.csr";
+#endif
             if (args.Length == 0)
             {
                 ShowHelp();
@@ -75,6 +75,7 @@ namespace Pluralsight.TrustUs
             var trustUsCertificateAuthority = new CertificateAuthoritySetup();
             var intermediateCertificateAuthorities = new List<CertificateConfiguration>
             {
+                ConfigurationData.Policy,
                 ConfigurationData.Berlin,
                 ConfigurationData.Capetown,
                 ConfigurationData.Cleveland,
@@ -83,8 +84,7 @@ namespace Pluralsight.TrustUs
                 ConfigurationData.Santiago,
                 ConfigurationData.Sydney
             };
-            trustUsCertificateAuthority.Install(ConfigurationData.Root, ConfigurationData.Policy,
-                intermediateCertificateAuthorities);
+            trustUsCertificateAuthority.Install(ConfigurationData.Root, intermediateCertificateAuthorities);
         }
 
         /// <summary>

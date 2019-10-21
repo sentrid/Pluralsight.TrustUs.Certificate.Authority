@@ -81,6 +81,7 @@ namespace Pluralsight.TrustUs
             var certificateBuffer = new byte[certificateSize];
             crypt.ExportCert(certificateBuffer, certificateSize, crypt.CERTFORMAT_TEXT_CERTIFICATE, certificateHandle);
             var certificate = Encoding.UTF8.GetString(certificateBuffer);
+            File.WriteAllText(fileName, certificate);
         }
 
         /// <summary>
