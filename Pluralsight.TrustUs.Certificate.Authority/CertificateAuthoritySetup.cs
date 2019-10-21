@@ -62,10 +62,6 @@ namespace Pluralsight.TrustUs
             crypt.SetAttribute(certificate, crypt.CERTINFO_SELFSIGNED, 1);
             crypt.SetAttribute(certificate, crypt.CERTINFO_CA, 1);
 
-            crypt.SetAttribute(certificate, crypt.ATTRIBUTE_CURRENT, crypt.CERTINFO_AUTHORITYINFO_CERTSTORE);
-            crypt.SetAttributeString(certificate, crypt.CERTINFO_UNIFORMRESOURCEIDENTIFIER,
-                configuration.CertStoreUrl);
-
             crypt.SetAttribute(certificate, crypt.ATTRIBUTE_CURRENT, crypt.CERTINFO_AUTHORITYINFO_OCSP);
             crypt.SetAttributeString(certificate, crypt.CERTINFO_UNIFORMRESOURCEIDENTIFIER,
                 configuration.OcspUrl);

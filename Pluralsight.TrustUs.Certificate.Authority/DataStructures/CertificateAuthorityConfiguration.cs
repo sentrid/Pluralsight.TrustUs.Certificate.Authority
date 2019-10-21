@@ -21,14 +21,7 @@
         /// <value>The name of the certificate store ODBC.</value>
         /// TODO Edit XML Comment Template for CertificateStoreOdbcName
         public string CertificateStoreOdbcName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the cert store URL.
-        /// </summary>
-        /// <value>The cert store URL.</value>
-        /// TODO Edit XML Comment Template for CertStoreUrl
-        public string CertStoreUrl { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the revocation list URL.
         /// </summary>

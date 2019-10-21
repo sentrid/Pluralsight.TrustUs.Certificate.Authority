@@ -27,7 +27,6 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             CertificateStoreFilePath = BaseDirectory + @"\TrustUsStore.db",
             CertificateStoreOdbcName = "TrustUs",
-            CertStoreUrl = @"http://certs.trustusca.net",
             OcspUrl = @"http://ocsp.trustusca.net",
             RevocationListUrl = @"http://crl.trustusca.net"
         };
@@ -47,9 +46,6 @@ namespace Pluralsight.TrustUs.Data
             },
             KeyLabel = "Policy",
             PrivateKeyPassword = "P@ssw0rd",
-            CertificateStoreFilePath = BaseDirectory + @"\TrustUsStore.db",
-            CertificateStoreOdbcName = "TrustUs",
-            CertStoreUrl = @"http://certs.trustusca.net",
             SigningKeyFileName = BaseDirectory + @"\ca.key",
             SigningKeyLabel = "Root",
             SigningKeyPassword = "P@ssw0rd"
