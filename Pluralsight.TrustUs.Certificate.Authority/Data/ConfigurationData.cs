@@ -1,4 +1,5 @@
 ﻿using Pluralsight.TrustUs.DataStructures;
+using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs.Data
 {
@@ -28,7 +29,8 @@ namespace Pluralsight.TrustUs.Data
             CertificateStoreFilePath = BaseDirectory + @"\TrustUsStore.db",
             CertificateStoreOdbcName = "TrustUs",
             OcspUrl = @"http://ocsp.trustusca.net",
-            RevocationListUrl = @"http://crl.trustusca.net"
+            RevocationListUrl = @"http://crl.trustusca.net",
+            CertificateType = crypt.CERTTYPE_CERTIFICATE
         };
 
         public static CertificateAuthorityConfiguration Policy => new CertificateAuthorityConfiguration
@@ -48,7 +50,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\ca.key",
             SigningKeyLabel = "Root",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Cleveland => new CertificateAuthorityConfiguration
@@ -68,7 +71,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Mumbai => new CertificateAuthorityConfiguration
@@ -88,7 +92,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Berlin => new CertificateAuthorityConfiguration
@@ -98,6 +103,7 @@ namespace Pluralsight.TrustUs.Data
             DistinguishedName = new DistinguishedName
             {
                 Country = "DE",
+                State = "Brandenburg",
                 Locality = "Berlin",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
@@ -107,7 +113,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Santiago => new CertificateAuthorityConfiguration
@@ -117,6 +124,7 @@ namespace Pluralsight.TrustUs.Data
             DistinguishedName = new DistinguishedName
             {
                 Country = "CL",
+                State = "Santiago Province",
                 Locality = "Santiago",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
@@ -126,7 +134,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Moscow => new CertificateAuthorityConfiguration
@@ -146,7 +155,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Sydney => new CertificateAuthorityConfiguration
@@ -166,7 +176,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
 
         public static CertificateAuthorityConfiguration Capetown => new CertificateAuthorityConfiguration
@@ -186,7 +197,8 @@ namespace Pluralsight.TrustUs.Data
             PrivateKeyPassword = "P@ssw0rd",
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
-            SigningKeyPassword = "P@ssw0rd"
+            SigningKeyPassword = "P@ssw0rd",
+            CertificateType = crypt.CERTTYPE_CERTCHAIN
         };
     }
 }

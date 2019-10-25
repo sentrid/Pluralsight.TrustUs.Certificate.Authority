@@ -45,6 +45,13 @@
         /// Gets or sets the filename of the certificate.
         /// </summary>
         public string CertificateFileName { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the type of the certificate.
+        /// Valid types are crypt.CERTTYPE_CERTIFICATE and crypt.CERTTYPE_CERTCHAIN
+        /// </summary>
+        /// <value>The type of the certificate.</value>
+        /// TODO Edit XML Comment Template for CertificateType
+        public int CertificateType { get; set; }
     }
 }

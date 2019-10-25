@@ -18,10 +18,10 @@ namespace Pluralsight.TrustUs
         /// <param name="configuration">The configuration.</param>
         /// <param name="keyContext">The key context.</param>
         /// <returns>System.Int32.</returns>
-        /// TODO Edit XML Comment Template for CreateCertificate
-        public static int CreateCertificate(CertificateAuthorityConfiguration configuration, int keyContext)
+        /// TODO Edit XML Comment Template for CreateCaCertificate
+        public static int CreateCaCertificate(KeyConfiguration configuration, int keyContext)
         {
-            var certificate = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTIFICATE);
+            var certificate = crypt.CreateCert(crypt.UNUSED, configuration.CertificateType);
 
             crypt.SetAttribute(certificate, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, keyContext);
             crypt.SetAttributeString(certificate, crypt.CERTINFO_COUNTRYNAME,
@@ -36,6 +36,8 @@ namespace Pluralsight.TrustUs
                 configuration.DistinguishedName.OrganizationalUnit);
             crypt.SetAttributeString(certificate, crypt.CERTINFO_COMMONNAME,
                 configuration.DistinguishedName.CommonName);
+
+            crypt.SetAttribute(certificate, crypt.CERTINFO_CA, 1);
 
             return certificate;
         }
@@ -75,13 +77,12 @@ namespace Pluralsight.TrustUs
         /// <param name="certificateHandle">The certificate handle.</param>
         /// <param name="fileName">Name of the file.</param>
         /// TODO Edit XML Comment Template for ExportCertificateToFile
-        public static void ExportCertificateToFile(int certificateHandle, string fileName)
+        public void ExportCertificateToFile(int certificateHandle, string fileName)
         {
-            var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_TEXT_CERTIFICATE, certificateHandle);
-            var certificateBuffer = new byte[certificateSize];
-            crypt.ExportCert(certificateBuffer, certificateSize, crypt.CERTFORMAT_TEXT_CERTIFICATE, certificateHandle);
-            var certificate = Encoding.UTF8.GetString(certificateBuffer);
-            File.WriteAllText(fileName, certificate);
+            var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_CERTIFICATE, certificateHandle);
+            var certificateBuffer = new byte[certificateSize*2];
+            crypt.ExportCert(certificateBuffer, certificateSize, crypt.CERTFORMAT_CERTIFICATE, certificateHandle);
+            File.WriteAllBytes(fileName, certificateBuffer);
         }
 
         /// <summary>
