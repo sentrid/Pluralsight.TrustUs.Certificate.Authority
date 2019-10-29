@@ -97,7 +97,7 @@ namespace Pluralsight.TrustUs
             var icaKeyPair = Key.GenerateKeyPair(configuration);
             var certChain = Certificate.CreateCaCertificate(configuration, icaKeyPair);
 
-            crypt.SetAttributeString(certChain, crypt.CERTINFO_CERTPOLICYID, "1.3.6.1.4.1.16404.1.2");
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_CERTPOLICYID, "1.3.6.1.4.1.99999.1.2");
             crypt.SetAttributeString(certChain, crypt.CERTINFO_CERTPOLICY_CPSURI, "http://cps.trustusca.net");
 
             crypt.SignCert(certChain, caPrivateKey);

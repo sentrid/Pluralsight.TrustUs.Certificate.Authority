@@ -161,7 +161,7 @@ namespace Pluralsight.TrustUs
         {
             var certificateAuthority = new CertificateAuthority();
 
-            var certificateConfiguration = new CertificateConfiguration
+            var certificateConfiguration = new CertificateAuthorityConfiguration
             {
                 CertificateFileName = @"C:\Pluralsight\Keys\DuckAir\CN4.cer",
                 DistinguishedName = new DistinguishedName
@@ -170,7 +170,8 @@ namespace Pluralsight.TrustUs
                 },
                 SigningKeyLabel = ConfigurationData.Berlin.KeyLabel,
                 SigningKeyFileName = ConfigurationData.Berlin.KeystoreFileName,
-                SigningKeyPassword = ConfigurationData.Berlin.PrivateKeyPassword
+                SigningKeyPassword = ConfigurationData.Berlin.PrivateKeyPassword,
+                CertificateStoreOdbcName = "TrustUs"
             };
 
             certificateAuthority.IssueCertificate(certificateConfiguration);

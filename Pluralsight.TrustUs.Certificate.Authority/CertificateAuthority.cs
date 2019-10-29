@@ -47,26 +47,27 @@ namespace Pluralsight.TrustUs
         /// <summary>
         /// Issues the certificate.
         /// </summary>
-        /// <param name="certificateConfiguration">The certificate configuration.</param>
+        /// <param name="certificateAuthorityConfiguration">The certificate configuration.</param>
         /// TODO Edit XML Comment Template for IssueCertificate
-        public void IssueCertificate(CertificateConfiguration certificateConfiguration)
+        public void IssueCertificate(CertificateAuthorityConfiguration certificateAuthorityConfiguration)
         {
-            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, certificateConfiguration.SigningKeyFileName,
+            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, certificateAuthorityConfiguration.SigningKeyFileName,
                 crypt.KEYOPT_READONLY);
-            var caKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME, certificateConfiguration.SigningKeyLabel, certificateConfiguration.SigningKeyPassword);
+            var caKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME, certificateAuthorityConfiguration.SigningKeyLabel, 
+                certificateAuthorityConfiguration.SigningKeyPassword);
 
-            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, @"TrustUs",
+            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, certificateAuthorityConfiguration.CertificateStoreOdbcName,
                 crypt.KEYOPT_NONE);
 
             var certRequest = crypt.CAGetItem(certStore, crypt.CERTTYPE_REQUEST_CERT, crypt.KEYID_NAME,
-                certificateConfiguration.DistinguishedName.CommonName);
+                certificateAuthorityConfiguration.DistinguishedName.CommonName);
 
             crypt.CACertManagement(crypt.CERTACTION_ISSUE_CERT, certStore, caKey, certRequest);
 
             var certChain = crypt.CAGetItem(certStore, crypt.CERTTYPE_CERTCHAIN, crypt.KEYID_NAME,
-                certificateConfiguration.DistinguishedName.CommonName);
+                certificateAuthorityConfiguration.DistinguishedName.CommonName);
 
-            File.WriteAllText(certificateConfiguration.CertificateFileName, Certificate.ExportCertificateAsText(certChain));
+            File.WriteAllText(certificateAuthorityConfiguration.CertificateFileName, Certificate.ExportCertificateAsText(certChain));
 
             crypt.DestroyObject(certChain);
             crypt.DestroyObject(caKey);
