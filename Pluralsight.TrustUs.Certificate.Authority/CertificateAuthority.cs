@@ -1,22 +1,24 @@
 ﻿using System.IO;
+using Pluralsight.TrustUs.Data;
 using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
     /// <summary>
-    /// Class CertificateAuthority.
+    ///     Class CertificateAuthority.
     /// </summary>
     public class CertificateAuthority
     {
         /// <summary>
-        /// Starts the ocsp server.
+        ///     Starts the ocsp server.
         /// </summary>
         /// TODO Edit XML Comment Template for StartOcspServer
         public static void StartOcspServer()
         {
             var session = crypt.CreateSession(crypt.UNUSED, crypt.SESSION_OCSP_SERVER);
-            var privateKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Test\Keys\clevelandica.key",
+            var privateKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE,
+                @"C:\Pluralsight\Test\Keys\clevelandica.key",
                 crypt.KEYOPT_READONLY);
             var privateKey = crypt.GetPrivateKey(privateKeyStore, crypt.KEYID_NAME, "Cleveland", "P@ssw0rd");
             var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, "TrustUs", crypt.KEYOPT_NONE);
@@ -27,47 +29,58 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        /// Submits the certificate request.
+        ///     Submits the certificate request.
         /// </summary>
+        /// <param name="certificateAuthorityConfiguration"></param>
         /// <param name="certificateRequestFileName">Name of the certificate request file.</param>
         /// TODO Edit XML Comment Template for SubmitCertificateRequest
-        public void SubmitCertificateRequest(string certificateRequestFileName)
+        public void SubmitCertificateRequest(CertificateAuthorityConfiguration certificateAuthorityConfiguration,
+            string certificateRequestFileName)
         {
-            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, @"TrustUs",
+            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE,
+                certificateAuthorityConfiguration.CertificateStoreOdbcName,
                 crypt.KEYOPT_NONE);
 
-            var requestCertificate = File.ReadAllText(certificateRequestFileName);
-            var certRequest = crypt.ImportCert(requestCertificate, crypt.UNUSED);
-            crypt.CAAddItem(certStore, certRequest);
 
-            crypt.DestroyCert(certRequest);
+            var requestCertificate = Certificate.ImportCertificateFromFile(certificateRequestFileName);
+
+            crypt.CAAddItem(certStore, requestCertificate);
+
+            crypt.DestroyCert(requestCertificate);
             crypt.KeysetClose(certStore);
         }
 
         /// <summary>
-        /// Issues the certificate.
+        ///     Issues the certificate.
         /// </summary>
         /// <param name="certificateAuthorityConfiguration">The certificate configuration.</param>
+        /// <param name="certificateEmailAddress"></param>
+        /// <param name="certificateFileName"></param>
         /// TODO Edit XML Comment Template for IssueCertificate
-        public void IssueCertificate(CertificateAuthorityConfiguration certificateAuthorityConfiguration)
+        public void IssueCertificate(CertificateAuthorityConfiguration certificateAuthorityConfiguration,
+            string certificateEmailAddress, string certificateFileName)
         {
-            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, certificateAuthorityConfiguration.SigningKeyFileName,
+            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE,
+                certificateAuthorityConfiguration.SigningKeyFileName,
                 crypt.KEYOPT_READONLY);
-            var caKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME, certificateAuthorityConfiguration.SigningKeyLabel, 
+            var caKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME,
+                certificateAuthorityConfiguration.SigningKeyLabel,
                 certificateAuthorityConfiguration.SigningKeyPassword);
 
-            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, certificateAuthorityConfiguration.CertificateStoreOdbcName,
-                crypt.KEYOPT_NONE);
+            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE,
+                certificateAuthorityConfiguration.CertificateStoreOdbcName,
+                crypt.KEYOPT_READONLY);
 
-            var certRequest = crypt.CAGetItem(certStore, crypt.CERTTYPE_REQUEST_CERT, crypt.KEYID_NAME,
-                certificateAuthorityConfiguration.DistinguishedName.CommonName);
+            var certRequest = crypt.CAGetItem(certStore, crypt.CERTTYPE_REQUEST_CERT, crypt.KEYID_EMAIL,
+                certificateEmailAddress);
 
             crypt.CACertManagement(crypt.CERTACTION_ISSUE_CERT, certStore, caKey, certRequest);
 
-            var certChain = crypt.CAGetItem(certStore, crypt.CERTTYPE_CERTCHAIN, crypt.KEYID_NAME,
-                certificateAuthorityConfiguration.DistinguishedName.CommonName);
+            var certChain = crypt.CAGetItem(certStore, crypt.CERTTYPE_CERTCHAIN, crypt.KEYID_EMAIL,
+                certificateEmailAddress);
 
-            File.WriteAllText(certificateAuthorityConfiguration.CertificateFileName, Certificate.ExportCertificateAsText(certChain));
+            File.WriteAllText($"{ConfigurationData.BaseDirectory}\\{certificateFileName}",
+                Certificate.ExportCertificateAsText(certChain));
 
             crypt.DestroyObject(certChain);
             crypt.DestroyObject(caKey);
@@ -77,15 +90,14 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        /// Revokes the certificate.
+        ///     Revokes the certificate.
         /// </summary>
         /// <param name="crlFileName">Name of the CRL file.</param>
         /// <param name="caKeyFileName">Name of the ca key file.</param>
         /// TODO Edit XML Comment Template for RevokeCertificate
         public void RevokeCertificate(string crlFileName, string caKeyFileName)
         {
-            var certificate = new Certificate();
-            var importCertificate = certificate.ImportCertificate(File.ReadAllText(crlFileName));
+            var importCertificate = Certificate.ImportCertificate(File.ReadAllText(crlFileName));
             var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, @"TrustUs",
                 crypt.KEYOPT_NONE);
             var caKey = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, caKeyFileName, crypt.KEYOPT_READONLY);

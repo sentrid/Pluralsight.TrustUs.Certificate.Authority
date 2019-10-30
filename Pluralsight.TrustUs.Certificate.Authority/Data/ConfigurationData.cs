@@ -1,4 +1,5 @@
-﻿using Pluralsight.TrustUs.DataStructures;
+﻿using System.Runtime.Remoting.Contexts;
+using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs.Data
@@ -72,7 +73,8 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
 
         public static CertificateAuthorityConfiguration Mumbai => new CertificateAuthorityConfiguration
@@ -93,7 +95,8 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
 
         public static CertificateAuthorityConfiguration Berlin => new CertificateAuthorityConfiguration
@@ -114,7 +117,8 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
 
         public static CertificateAuthorityConfiguration Santiago => new CertificateAuthorityConfiguration
@@ -135,7 +139,8 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
 
         public static CertificateAuthorityConfiguration Moscow => new CertificateAuthorityConfiguration
@@ -156,7 +161,8 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
 
         public static CertificateAuthorityConfiguration Sydney => new CertificateAuthorityConfiguration
@@ -177,7 +183,8 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
 
         public static CertificateAuthorityConfiguration Capetown => new CertificateAuthorityConfiguration
@@ -198,7 +205,35 @@ namespace Pluralsight.TrustUs.Data
             SigningKeyFileName = BaseDirectory + @"\policy.key",
             SigningKeyLabel = "Policy",
             SigningKeyPassword = "P@ssw0rd",
-            CertificateType = crypt.CERTTYPE_CERTCHAIN
+            CertificateType = crypt.CERTTYPE_CERTCHAIN,
+            CertificateStoreOdbcName = "TrustUs"
         };
+
+        public static CertificateAuthorityConfiguration GetAuthorityByName(string authorityName)
+        {
+            switch (authorityName)
+            {
+                case "Root":
+                    return Root;
+                case "Policy":
+                    return Policy;
+                case "Cleveland":
+                    return Cleveland;
+                case "Mumbai":
+                    return Mumbai;
+                case "Berlin":
+                    return Berlin;
+                case "Santiago":
+                    return Santiago;
+                case "Moscow":
+                    return Moscow;
+                case "Sydney":
+                    return Sydney;
+                case "Capetown":
+                    return Capetown;
+                default:
+                    return null;
+            }
+        }
     }
 }

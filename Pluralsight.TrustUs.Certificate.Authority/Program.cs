@@ -8,23 +8,23 @@ using Pluralsight.TrustUs.Libraries;
 namespace Pluralsight.TrustUs
 {
     /// <summary>
-    /// Class Program.
+    ///     Class Program.
     /// </summary>
     /// TODO Edit XML Comment Template for Program
     public class Program
     {
         /// <summary>
-        /// Defines the entry point of the application.
+        ///     Defines the entry point of the application.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// TODO Edit XML Comment Template for Main
         public static void Main(string[] args)
         {
-#if DEBUG
-            Array.Resize(ref args, 2);
-            args[0] = "install";
-            args[1] = @"C:\Pluralsight\Keys\DuckAir\FlightOps.csr";
-#endif
+//#if DEBUG
+//            Array.Resize(ref args, 2);
+//            args[0] = "install";
+//            args[1] = @"C:\Pluralsight\Keys\DuckAir\FlightOps.csr";
+//#endif
             if (args.Length == 0)
             {
                 ShowHelp();
@@ -48,13 +48,13 @@ namespace Pluralsight.TrustUs
                     SubmitCertificateRequest(args);
                     break;
                 case "issue":
-                    IssueCertificate();
+                    IssueCertificate(args);
                     break;
                 default:
                     ShowHelp();
                     return;
             }
-            
+
             try
             {
                 crypt.End();
@@ -67,7 +67,7 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        /// Installs the certificate authority.
+        ///     Installs the certificate authority.
         /// </summary>
         /// TODO Edit XML Comment Template for InstallCertificateAuthority
         private static void InstallCertificateAuthority()
@@ -88,7 +88,7 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        /// Creates the certificate request.
+        ///     Creates the certificate request.
         /// </summary>
         /// TODO Edit XML Comment Template for CreateCertificateRequest
         private static void CreateCertificateRequest()
@@ -138,47 +138,40 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        /// Submits the certificate request.
+        ///     Submits the certificate request.
         /// </summary>
         /// <param name="args">The arguments.</param>
         /// TODO Edit XML Comment Template for SubmitCertificateRequest
         private static void SubmitCertificateRequest(string[] args)
         {
-            if (args.Length < 2)
+            if (args.Length < 3)
             {
                 ShowHelp();
                 return;
             }
 
-            new CertificateAuthority().SubmitCertificateRequest(args[1]);
+            var certificateAuthorityConfiguration = ConfigurationData.GetAuthorityByName(args[1]);
+            new CertificateAuthority().SubmitCertificateRequest(certificateAuthorityConfiguration, args[2]);
         }
 
         /// <summary>
-        /// Issues the certificate.
+        ///     Issues the certificate.
         /// </summary>
         /// TODO Edit XML Comment Template for IssueCertificate
-        private static void IssueCertificate()
+        private static void IssueCertificate(string[] args)
         {
-            var certificateAuthority = new CertificateAuthority();
-
-            var certificateConfiguration = new CertificateAuthorityConfiguration
+            if (args.Length < 3)
             {
-                CertificateFileName = @"C:\Pluralsight\Keys\DuckAir\CN4.cer",
-                DistinguishedName = new DistinguishedName
-                {
-                    CommonName = "CN4"
-                },
-                SigningKeyLabel = ConfigurationData.Berlin.KeyLabel,
-                SigningKeyFileName = ConfigurationData.Berlin.KeystoreFileName,
-                SigningKeyPassword = ConfigurationData.Berlin.PrivateKeyPassword,
-                CertificateStoreOdbcName = "TrustUs"
-            };
-
-            certificateAuthority.IssueCertificate(certificateConfiguration);
+                ShowHelp();
+                return;
+            }
+            var certificateAuthority = new CertificateAuthority();
+            var certificateConfiguration = ConfigurationData.GetAuthorityByName(args[1]);
+            certificateAuthority.IssueCertificate(certificateConfiguration, args[2], args[3]);
         }
 
         /// <summary>
-        /// Shows the help.
+        ///     Shows the help.
         /// </summary>
         /// TODO Edit XML Comment Template for ShowHelp
         private static void ShowHelp()

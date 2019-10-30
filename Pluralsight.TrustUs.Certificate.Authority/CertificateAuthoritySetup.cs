@@ -45,7 +45,8 @@ namespace Pluralsight.TrustUs
                 file.Close();
             }
 
-            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, configuration.CertificateStoreOdbcName, crypt.KEYOPT_CREATE);
+            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, 
+                configuration.CertificateStoreOdbcName, crypt.KEYOPT_CREATE);
             crypt.KeysetClose(certStore);
         }
 
@@ -74,7 +75,7 @@ namespace Pluralsight.TrustUs
                 crypt.KEYOPT_NONE);
             crypt.AddPublicKey(keyStore, certificate);
 
-            new Certificate().ExportCertificateToFile(certificate, configuration.CertificateFileName);
+            Certificate.ExportCertificateToFile(certificate, configuration.CertificateFileName);
 
             crypt.KeysetClose(keyStore);
             crypt.DestroyContext(keyPair);
@@ -104,7 +105,7 @@ namespace Pluralsight.TrustUs
             var icaKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, configuration.KeystoreFileName, crypt.KEYOPT_NONE);
             crypt.AddPublicKey(icaKeyStore, certChain);
 
-            new Certificate().ExportCertificateToFile(certChain, configuration.CertificateFileName);
+            Certificate.ExportCertificateToFile(certChain, configuration.CertificateFileName);
 
             crypt.DestroyCert(certChain);
             crypt.KeysetClose(icaKeyStore);

@@ -77,7 +77,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificateHandle">The certificate handle.</param>
         /// <param name="fileName">Name of the file.</param>
         /// TODO Edit XML Comment Template for ExportCertificateToFile
-        public void ExportCertificateToFile(int certificateHandle, string fileName)
+        public static void ExportCertificateToFile(int certificateHandle, string fileName)
         {
             var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_CERTIFICATE, certificateHandle);
             var certificateBuffer = new byte[certificateSize*2];
@@ -103,7 +103,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificate">The certificate.</param>
         /// <returns>System.Int32.</returns>
         /// TODO Edit XML Comment Template for ImportCertificate
-        public int ImportCertificate(string certificate)
+        public static int ImportCertificate(string certificate)
         {
             var certificateHandle = crypt.ImportCert(certificate, crypt.UNUSED);
             return certificateHandle;
@@ -115,7 +115,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificateFileName">Name of the certificate file.</param>
         /// <returns>System.Int32.</returns>
         /// TODO Edit XML Comment Template for ImportCertificateFromFile
-        public int ImportCertificateFromFile(string certificateFileName)
+        public static int ImportCertificateFromFile(string certificateFileName)
         {
             var certificateHandle = crypt.ImportCert(File.ReadAllText(certificateFileName), crypt.UNUSED);
             return certificateHandle;
@@ -127,7 +127,7 @@ namespace Pluralsight.TrustUs
         /// <param name="keyConfiguration">The key configuration.</param>
         /// <param name="keyPairContext">The key pair context.</param>
         /// TODO Edit XML Comment Template for CreateSigningRequest
-        public void CreateSigningRequest(KeyConfiguration keyConfiguration, int keyPairContext)
+        public static void CreateSigningRequest(KeyConfiguration keyConfiguration, int keyPairContext)
         {
             var certificate = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTREQUEST);
 
@@ -160,7 +160,7 @@ namespace Pluralsight.TrustUs
         /// <param name="certificateFileName">Name of the certificate file.</param>
         /// <param name="crlFileName">Name of the CRL file.</param>
         /// TODO Edit XML Comment Template for CreateRevocationRequest
-        public void CreateRevocationRequest(string certificateFileName, string crlFileName)
+        public static void CreateRevocationRequest(string certificateFileName, string crlFileName)
         {
             var certificateToBeRevoked = ImportCertificateFromFile(certificateFileName);
             var revocationRequest = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_REQUEST_REVOCATION);
