@@ -23,7 +23,6 @@ namespace Pluralsight.TrustUs
                 certificateAuthorityConfiguration.CertificateStoreOdbcName,
                 crypt.KEYOPT_NONE);
 
-
             var requestCertificate = Certificate.ImportCertificateFromFile(certificateRequestFileName);
 
             crypt.CAAddItem(certStore, requestCertificate);
@@ -43,11 +42,11 @@ namespace Pluralsight.TrustUs
             string certificateEmailAddress, string certificateFileName)
         {
             var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE,
-                certificateAuthorityConfiguration.SigningKeyFileName,
+                certificateAuthorityConfiguration.KeystoreFileName,
                 crypt.KEYOPT_READONLY);
             var caKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME,
-                certificateAuthorityConfiguration.SigningKeyLabel,
-                certificateAuthorityConfiguration.SigningKeyPassword);
+                certificateAuthorityConfiguration.KeyLabel,
+                certificateAuthorityConfiguration.PrivateKeyPassword);
 
             var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE,
                 certificateAuthorityConfiguration.CertificateStoreOdbcName,
