@@ -23,7 +23,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Cleveland",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Root Certificate"
+                CommonName = "Trust Us CA Root Certificate"
             },
             KeyLabel = "Root",
             PrivateKeyPassword = "P@ssw0rd",
@@ -45,7 +45,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Cleveland",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Policy Certificate"
+                CommonName = "Trust Us Policy CA"
             },
             KeyLabel = "Policy",
             PrivateKeyPassword = "P@ssw0rd",
@@ -66,7 +66,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Cleveland",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Cleveland Certificate"
+                CommonName = "Trust Us Cleveland CA"
             },
             KeyLabel = "Cleveland",
             PrivateKeyPassword = "P@ssw0rd",
@@ -88,7 +88,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Mumbai",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Mumbai Certificate"
+                CommonName = "Trust Us Mumbai CA"
             },
             KeyLabel = "Mumbai",
             PrivateKeyPassword = "P@ssw0rd",
@@ -110,7 +110,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Berlin",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Berlin Certificate"
+                CommonName = "Trust Us Berlin CA"
             },
             KeyLabel = "Berlin",
             PrivateKeyPassword = "P@ssw0rd",
@@ -132,7 +132,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Santiago",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Santiago Certificate"
+                CommonName = "Trust Us Santiago CA"
             },
             KeyLabel = "Santiago",
             PrivateKeyPassword = "P@ssw0rd",
@@ -154,7 +154,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Moscow",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Santiago Certificate"
+                CommonName = "Trust Us Moscow CA"
             },
             KeyLabel = "Moscow",
             PrivateKeyPassword = "P@ssw0rd",
@@ -176,7 +176,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Sydney",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Sydney Certificate"
+                CommonName = "Trust Us Sydney CA"
             },
             KeyLabel = "Sydney",
             PrivateKeyPassword = "P@ssw0rd",
@@ -198,7 +198,7 @@ namespace Pluralsight.TrustUs.Data
                 Locality = "Cape Town",
                 Organization = "Trust Us",
                 OrganizationalUnit = "Certificates",
-                CommonName = "Cape Town Certificate"
+                CommonName = "Trust Us Cape Town CA"
             },
             KeyLabel = "Cape Town",
             PrivateKeyPassword = "P@ssw0rd",
