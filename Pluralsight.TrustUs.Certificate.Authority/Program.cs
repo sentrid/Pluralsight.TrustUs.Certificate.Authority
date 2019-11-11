@@ -176,7 +176,33 @@ namespace Pluralsight.TrustUs
         /// TODO Edit XML Comment Template for ShowHelp
         private static void ShowHelp()
         {
-            Console.WriteLine("HELP!!");
+            string helpMessage = "Trust Us Certificate Authority\n\n" +
+
+                                 "Install Certificate Authority\n" +
+                                 "-----------------------------\n" +
+                                 " > ca install\n\n" +
+
+                                 "Destroy Certificate Authority\n" +
+                                 "-----------------------------\n" +
+                                 " > ca clean\n\n" +
+
+                                 "Submit Certificate Signing Request\n" +
+                                 "----------------------------------\n" +
+                                 " > ca submit {certificate authority name} {certificate signing request file name}\n\n" +
+
+                                 "   {certificate authority name}            is the name of the certificate authority to which you are submitting the CSR\n" +
+                                 "   {certificate signing request file name} is the filename holding the CSR\n\n" +
+
+
+                                 "Issue a Certificate\n" +
+                                 "-------------------\n" +
+                                 " > ca issue  {certificate authority name} {email address} {certificate file name}\n\n" +
+
+                                 "   {certificate authority name} is the name of the certificate authority to which you have submitted the CSR\n" +
+                                 "   {email address}              is the email address of the CSR subject\n" +
+                                 "   {certificate file name}      is the filename of the file to be created to hold the issued certificate\n";
+
+            Console.WriteLine(helpMessage);
         }
     }
 }
