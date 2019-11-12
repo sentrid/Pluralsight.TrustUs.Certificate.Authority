@@ -7,17 +7,8 @@ using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
-    /// <summary>
-    ///     Class Program.
-    /// </summary>
-    /// TODO Edit XML Comment Template for Program
     public class Program
     {
-        /// <summary>
-        ///     Defines the entry point of the application.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// TODO Edit XML Comment Template for Main
         public static void Main(string[] args)
         {
 //#if DEBUG
@@ -66,10 +57,6 @@ namespace Pluralsight.TrustUs
             }
         }
 
-        /// <summary>
-        ///     Installs the certificate authority.
-        /// </summary>
-        /// TODO Edit XML Comment Template for InstallCertificateAuthority
         private static void InstallCertificateAuthority()
         {
             var trustUsCertificateAuthority = new CertificateAuthoritySetup();
@@ -87,10 +74,6 @@ namespace Pluralsight.TrustUs
             trustUsCertificateAuthority.Install(ConfigurationData.Root, intermediateCertificateAuthorities);
         }
 
-        /// <summary>
-        ///     Creates the certificate request.
-        /// </summary>
-        /// TODO Edit XML Comment Template for CreateCertificateRequest
         private static void CreateCertificateRequest()
         {
             var keyConfiguration = new KeyConfiguration();
@@ -137,11 +120,6 @@ namespace Pluralsight.TrustUs
             if (!string.IsNullOrEmpty(tempFileName)) keyConfiguration.CertificateFileName = tempFileName;
         }
 
-        /// <summary>
-        ///     Submits the certificate request.
-        /// </summary>
-        /// <param name="args">The arguments.</param>
-        /// TODO Edit XML Comment Template for SubmitCertificateRequest
         private static void SubmitCertificateRequest(string[] args)
         {
             if (args.Length < 3)
@@ -154,10 +132,6 @@ namespace Pluralsight.TrustUs
             new CertificateAuthority().SubmitCertificateRequest(certificateAuthorityConfiguration, args[2]);
         }
 
-        /// <summary>
-        ///     Issues the certificate.
-        /// </summary>
-        /// TODO Edit XML Comment Template for IssueCertificate
         private static void IssueCertificate(string[] args)
         {
             if (args.Length < 3)
@@ -170,10 +144,6 @@ namespace Pluralsight.TrustUs
             certificateAuthority.IssueCertificate(certificateConfiguration, args[2], args[3]);
         }
 
-        /// <summary>
-        ///     Shows the help.
-        /// </summary>
-        /// TODO Edit XML Comment Template for ShowHelp
         private static void ShowHelp()
         {
             string helpMessage = "Trust Us Certificate Authority\n\n" +
