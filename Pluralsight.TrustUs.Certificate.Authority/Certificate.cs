@@ -60,9 +60,31 @@ namespace Pluralsight.TrustUs
             return certificateHandle;
         }
 
-        public static void CreateSigningRequest(KeyConfiguration keyConfiguration, int keyPairContext)
+        public void CreateSigningRequest(KeyConfiguration keyConfiguration, int keyPairContext)
         {
+            var certificate = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTREQUEST);
+
+            crypt.SetAttribute(certificate, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, keyPairContext);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_COUNTRYNAME,
+                keyConfiguration.DistinguishedName.Country);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_STATEORPROVINCENAME,
+                keyConfiguration.DistinguishedName.State);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_LOCALITYNAME,
+                keyConfiguration.DistinguishedName.Locality);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_ORGANIZATIONNAME,
+                keyConfiguration.DistinguishedName.Organization);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_ORGANIZATIONALUNITNAME,
+                keyConfiguration.DistinguishedName.OrganizationalUnit);
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_COMMONNAME,
+                keyConfiguration.DistinguishedName.CommonName);
+
+            crypt.SignCert(certificate, keyPairContext);
             
+            var certificateText = ExportCertificateAsText(certificate);
+            File.WriteAllText(keyConfiguration.CertificateRequestFileName, certificateText);
+
+            crypt.DestroyCert(certificate);
+
         }
     }
 }
